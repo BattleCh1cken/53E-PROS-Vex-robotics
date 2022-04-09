@@ -1,5 +1,4 @@
 #include "main.h"
-#include "devices.cpp"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -75,26 +74,18 @@ void autonomous() {}
  */
 
 void opcontrol() {
+	
 	Controller master (E_CONTROLLER_MASTER);
 
 	//Drive Train Motors
-	Motor left_front (2, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
-	left_front.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
-	Motor left_back (3, E_MOTOR_GEARSET_18, true, E_MOTOR_ENCODER_DEGREES);
-	left_back.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+	Motor left_front (5, E_MOTOR_GEARSET_18, true);
+	Motor left_back (6, E_MOTOR_GEARSET_18, true);
 
-	Motor right_front (20, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
-	right_front.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
-	Motor right_back (10, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
-	right_back.set_brake_mode(E_MOTOR_BRAKE_BRAKE);
+	Motor right_front (19, E_MOTOR_GEARSET_18, false);
+	Motor right_back (20, E_MOTOR_GEARSET_18, false);
 
 	//Lift Motors
-	Motor front_lift (11, E_MOTOR_GEARSET_36, false, E_MOTOR_ENCODER_DEGREES);
-	front_lift.set_brake_mode(E_MOTOR_BRAKE_HOLD);
-	Motor front_clamp (1, E_MOTOR_GEARSET_18, false, E_MOTOR_ENCODER_DEGREES);
-	front_clamp.set_brake_mode(E_MOTOR_BRAKE_HOLD);
-	Motor back_lift (5, E_MOTOR_GEARSET_36, false, E_MOTOR_ENCODER_DEGREES);
-	back_lift.set_brake_mode(E_MOTOR_BRAKE_HOLD);
+		
 	master.clear();
 		int count = 0;
 		bool isforward = true;
@@ -102,8 +93,6 @@ void opcontrol() {
 		bool backGoingUp = false;
 		bool frontGoingUp = true;
 		bool clampGoingUp = false;
-
-	while (true) {
 		int J1;
 		int J2 = master.get_analog(ANALOG_RIGHT_Y);
 		int J3 = master.get_analog(ANALOG_LEFT_Y);
@@ -121,61 +110,72 @@ void opcontrol() {
 		bool LEFT = master.get_digital(DIGITAL_LEFT);
 		bool RIGHT = master.get_digital(DIGITAL_RIGHT);
 
-		if (R1)      front_lift.move_velocity(100);
-		else if (R2) front_lift.move_velocity(-100);
-		else         front_lift.move_velocity(0);
+	while (true) {
+		J2 = master.get_analog(ANALOG_RIGHT_Y);
+		J3 = master.get_analog(ANALOG_LEFT_Y);
+		L1 = master.get_digital(DIGITAL_L1);
+		L2 = master.get_digital(DIGITAL_L2);
+		R1 = master.get_digital(DIGITAL_R1);
+		R2 = master.get_digital(DIGITAL_R2);
+		X = master.get_digital(DIGITAL_X);
+		B = master.get_digital(DIGITAL_B);
+		Y = master.get_digital(DIGITAL_Y);
+		A = master.get_digital(DIGITAL_A);
+		UP = master.get_digital(DIGITAL_UP);
+		DOWN = master.get_digital(DIGITAL_DOWN);
+		LEFT = master.get_digital(DIGITAL_LEFT);
+		RIGHT = master.get_digital(DIGITAL_RIGHT);
 
-	
-
-		if (L1)      front_clamp.move_velocity(100);
-		else if (L2) front_clamp.move_velocity(-100);
-		else         front_clamp.move_velocity(0);
-
-				
-	
-		/*
-		if (UP)      back_lift.move_velocity(50);
-		else if (DOWN) back_lift.move_velocity(-50);	
-		else         back_lift.move_velocity(0);
-		*/
-	
+	// 	if (R1)      front_lift.move_velocity(100);
+	// 	else if (R2) front_lift.move_velocity(-100);
+	// 	else         front_lift.move_velocity(0);
+	//
+	// 
+	//
+	// 	if (L1)      front_clamp.move_velocity(100);
+	// 	else if (L2) front_clamp.move_velocity(-100);
+	// 	else         front_clamp.move_velocity(0);
+	//
+	//
 
 		
-		if (master.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
-			frontGoingUp = !frontGoingUp;
-			front_lift.move_absolute(backGoingUp? 600 : 0,100);
+		// if (UP)      back_lift.move_velocity(50);
+		// else if (DOWN) back_lift.move_velocity(-50);
+		// else         back_lift.move_velocity(0);
 
-		}
-	
-		
-		if (master.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
-			backGoingUp = !backGoingUp;
-			back_lift.move_absolute(backGoingUp? 600 : 0,100);
-
-		}
-		
-		
-		if (master.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-		isforward = !isforward;
-		}
-
-		//torque limiters
-		if (back_lift.get_torque() > 2) {
-			back_lift.move_velocity(0);
-			backGoingUp = !backGoingUp;
-		}
-		if (front_lift.get_torque() > 2) {
-			front_lift.move_velocity(0);
-			frontGoingUp = !frontGoingUp;
-		}
-
+	//
+	// 	
+	// 	if (master.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
+	// 		frontGoingUp = !frontGoingUp;
+	// 		front_lift.move_absolute(backGoingUp? 600 : 0,100);
+	//
+	// 	}
+	// 
+	// 	
+	// 	if (master.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+	// 		backGoingUp = !backGoingUp;
+	// 		back_lift.move_absolute(backGoingUp? 600 : 0,100);
+	//
+	// 	}
+	// 	
+		// 
+		// 		//torque limiters
+		// if (back_lift.get_torque() > 2) {
+		// 	back_lift.move_velocity(0);
+		// 	backGoingUp = !backGoingUp;
+		// }
+		// if (front_lift.get_torque() > 2) {
+		// 	front_lift.move_velocity(0);
+		// 	frontGoingUp = !frontGoingUp;
+		// }
+		//
 
 
 		//move those motors
-		left_front.move((isforward ? 1 : -1) * (isforward? J3 : J2));
-		left_back.move((isforward ? 1 : -1) * (isforward? J3 : J2));
-		right_front.move((isforward ? 1 : -1) * (isforward? J2 : J3));
-		right_back.move((isforward ? 1 : -1) * (isforward? J2 : J3));
+		left_front.move(J3);
+		left_back.move(J3);
+		right_front.move(J2);
+		right_back.move(J2);
 
 
 
@@ -183,8 +183,7 @@ void opcontrol() {
 		//print things within the brain's limits
 		count++;
 		if (!(count % 25)) {
-		master.print(1,1,"%.3f",front_lift.get_torque());
-		master.print(0,0,"%3.2f",front_lift.get_position());
+		master.print(1,1,"%.3f",potato);
 		}
 	}
 }
