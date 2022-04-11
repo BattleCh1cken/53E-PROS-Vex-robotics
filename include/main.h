@@ -36,6 +36,11 @@
 
 #include "api.h"
 #include "devices.h"
+
+
+//Helpers
+#include "helpers/autonHelpers.h"
+
 /**
  * You should add more #includes here
  */
