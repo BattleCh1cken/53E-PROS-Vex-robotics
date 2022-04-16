@@ -39,6 +39,7 @@
 
 
 //Helpers
+#include "helpers/opcontrolHelpers.h"
 #include "helpers/autonHelpers.h"
 
 /**
