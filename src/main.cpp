@@ -25,8 +25,6 @@ void initialize() {
 	lcd::initialize();
 	lcd::set_text(1, "Well, your program ran. But idk what happens now.");
         //Set brake modes
-        frontLift.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-        clamp.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         //Start task that prints things for driver control
         Task dataTask(printData);
 }
