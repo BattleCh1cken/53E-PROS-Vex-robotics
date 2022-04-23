@@ -36,6 +36,7 @@
 
 #include "api.h"
 #include "devices.h"
+#include "drive.hpp"
 
 
 //Helpers
