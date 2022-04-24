@@ -36,12 +36,10 @@
 
 #include "api.h"
 #include "devices.h"
-#include "drive.hpp"
 
-
-//Helpers
-#include "helpers/opcontrolHelpers.h"
+// Helpers
 #include "helpers/autonHelpers.h"
+#include "helpers/opcontrolHelpers.h"
 
 /**
  * You should add more #includes here
@@ -83,4 +81,4 @@ void opcontrol(void);
 //#include <iostream>
 #endif
 
-#endif  // _PROS_MAIN_H_
+#endif // _PROS_MAIN_H_

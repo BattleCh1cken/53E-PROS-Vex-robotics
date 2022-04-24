@@ -14,12 +14,12 @@
  */
 
 void opcontrol() {
-	while (true) {
-           updateVars();
-           moveDrive();
-           moveFrontLift();
-           moveClamp();
+  while (true) {
+    updateVars();
+    moveDrive();
+    moveFrontLift();
+    moveClamp();
 
-           delay(20);
-		}
-	}
+    delay(20);
+  }
+}

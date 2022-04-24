@@ -6,13 +6,13 @@
  * "I was pressed!" and nothing.
  */
 void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
+  static bool pressed = false;
+  pressed = !pressed;
+  if (pressed) {
+    pros::lcd::set_text(2, "I was pressed!");
+  } else {
+    pros::lcd::clear_line(2);
+  }
 }
 
 /**
@@ -22,11 +22,13 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	lcd::initialize();
-	lcd::set_text(1, "Well, your program ran. But idk what happens now.");
-        //Set brake modes
-        //Start task that prints things for driver control
-        Task dataTask(printData);
+  lcd::initialize();
+  lcd::set_text(1, "Well, your program ran. But idk what happens now.");
+  // Set brake modes
+  // Start task that prints things for driver control
+  clamp.set_brake_mode(MOTOR_BRAKE_HOLD);
+  frontLift.set_brake_mode(MOTOR_BRAKE_HOLD);
+  Task dataTask(printData);
 }
 
 /**
